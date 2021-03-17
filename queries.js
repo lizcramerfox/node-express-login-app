@@ -28,6 +28,15 @@ const getUserById = (request, response) => {
   })
 }
 
+const getUserByEmail = (email) => {
+  pool.query('SELECT * FROM users WHERE email = $1', [email], (err, res) => {
+    if (err) {
+      throw err
+    }
+    return res.rows[0]
+  })
+}
+
 const createUser = (request, response) => {
   const { name, email } = request.body
 
@@ -64,6 +73,7 @@ const deleteUser = (request, response) => {
 module.exports = {
   getUsers,
   getUserById,
+  getUserByEmail,
   createUser,
   updateUser,
   deleteUser
